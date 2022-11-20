@@ -32,6 +32,9 @@
             <li class="nav-item">
               <a class="nav-link" data-target="#Leaderboard" data-toggle="modal" href="#" >Leaderboard</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" data-target="#loadGame" data-toggle="modal" href="#" >load game</a>
+            </li>
           </ul>
         </div>
     </nav> 
@@ -72,14 +75,13 @@
           <div class="cell"></div>
           <div class="tile t2" id="tile2">2</div>
       </div>
-    
+
     </div>
-    
- 
+
   </body>
 </html>
-<!--Modal de usuario-->
-    <!-- Modal -->
+
+<!--Modal de liderBoard-->
 <div class="modal fade" id="Leaderboard" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="background-color:#EDEDED">
@@ -123,8 +125,8 @@
     </div>
   </div>
 </div>
-<!--Modal de editar usuario-->
-<!-- Modal -->
+
+<!--Modal de best score-->
 <div class="modal fade" id="bestScores" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="background-color:#EDEDED">
@@ -148,11 +150,36 @@
     </div>
   </div>
 </div>
-<!--Modal de mostrar tablero-->
 
+<!--Modal de load game-->
+<div class="modal fade" id="loadGame" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#EDEDED">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color: #790252;">Best Scores</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction:column;">
+          <a name="" id="score1" class="btn btn-primary" style="margin: 2vmin" href="#" role="button">save1- score: ????</a>
+          <a name="" id="score1" class="btn btn-primary" style="margin: 2vmin" href="#" role="button">save2- score: ????</a>
+          <a name="" id="score1" class="btn btn-primary" style="margin: 2vmin" href="#" role="button">save3- score: ????</a>
+          <a name="" id="score1" class="btn btn-primary" style="margin: 2vmin" href="#" role="button">save4- score: ????</a>
+          <a name="" id="score1" class="btn btn-primary" style="margin: 2vmin" href="#" role="button">save5- score: ????</a>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#AF0171; border: none;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal de mostrar tablero-->
 <div class="modal fade" id="showBoard" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 75vmin;">
       <div class="modal-header">
         <h5 class="modal-title" style="color: #790252;">Score: ????</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -186,8 +213,8 @@
     </div>
   </div>
 </div>
-<!--Modal de información de usuario -->
 
+<!--Modal de información de usuario -->
 <div class="modal fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -251,4 +278,4 @@
       </div>
     </div>
   </div>
-</div>  
+</div>
