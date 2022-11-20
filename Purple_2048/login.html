@@ -31,7 +31,7 @@
         <div style="display: flex; flex-direction: column; justify-content: center;">
           <div><img src="images/2048_neon.png" alt="error al cargar la imagen"></div>
           <div style="display: flex; justify-content: center;">
-            <form style="padding: 10px; display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; width: 50%; align-items: center;" id="formLogin" action="javascript:window.location.href =board.html">
+            <form style="padding: 10px; display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; width: 50%; align-items: center;" id="formLogin" action="">
               <div style="display: flex; color: white;">
                 <h3><b>Log In:</b></h3>
               </div>
@@ -45,7 +45,8 @@
                   <input type="password" class="form-control" id="password1" placeholder="Password" required style="border-radius: 10px;">
                 </div>
               </div>
-              <button type="submit" class="btn btn-dark" href="home.html" style="padding: .375rem 3rem;">Log In</button>
+              <a type="button" href="board.html" class="btn btn-dark" style="padding: .375rem 3rem;">Log In</a>
+              <!--<button type="button" href="board.html" class="btn btn-dark" style="padding: .375rem 3rem;">Log In</button>-->
               <br>
               <br>
               <div>
@@ -91,7 +92,7 @@
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="tNm" ALIGN=LEFT>Confirm Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="password" name="newUser" aria-describedby="helpId" placeholder="Confirm the password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+              <input type="password" class="form-control" id="confpassword" name="newUser" aria-describedby="helpId" placeholder="Confirm the password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
             </div>
           </div>
           <button class="btn" type="submit" style="background-color: #790252; color: white; padding: .375rem 3rem;" >Join</button>
