@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "chalk": "^5.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.5",
+    "path": "^0.12.7",
+    "randomatic": "^3.1.1",
+    "url": "^0.11.0"
+  }
+}

@@ -1,0 +1,53 @@
+POST http://localhost:3000/api/users HTTP/1.1
+content-Type: application/json
+
+{
+    "email":"jose.aceves@gmail.com",
+    "password":"Jose123",
+    "username":"joseA"
+}
+
+###
+PUT http://localhost:3000/api/login
+content-Type: application/json
+
+{
+    "password":"Jose123",
+    "username":"joseA"
+}
+
+###
+GET http://localhost:3000/api/users
+x-auth-user: MP3D9lJfLC-6382aabe652642d0dc4a9578
+
+###
+GET http://localhost:3000/api/users/bestScores
+x-auth-user: MP3D9lJfLC-6382aabe652642d0dc4a9578
+
+###
+GET http://localhost:3000/api/users/loadGames
+x-auth-user: MP3D9lJfLC-6382aabe652642d0dc4a9578
+
+###
+GET http://localhost:3000/api/users/leaders
+x-auth-user: MP3D9lJfLC-6382aabe652642d0dc4a9578
+
+###
+GET http://localhost:3000/api/users/loadGame
+x-auth-user: MP3D9lJfLC-6382aabe652642d0dc4a9578
+index:1
+
+###
+GET http://localhost:3000/api/users/bestScore
+x-auth-user: MP3D9lJfLC-6382aabe652642d0dc4a9578
+index:0
+
+    # "email":"jose.aceves@gmail.com",
+    # "password":"Jose123",
+    # "username":"joseA"
+    # MP3D9lJfLC-6382aabe652642d0dc4a9578
+
+    # "email":"HectorAguilar@gmail.com",
+    # "password":"hectorin123",
+    # "username":"hectorin"
+    # un0izBMs9k-6382aaecbd62980b0e36459c
