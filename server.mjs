@@ -9,8 +9,8 @@ import mongoose, { get } from "mongoose";
 import url from "url";
 import path from "path";
 
-const _filename=url.fileURLToPath(import.meta.url);
-const _dirname =url.fileURLToPath(new URL(".",import.meta.url));
+const __filename=url.fileURLToPath(import.meta.url);
+const __dirname =url.fileURLToPath(new URL(".",import.meta.url));
 
 let mongoConnection= "mongodb+srv://admin:IpQnoc0Vjl5hZxvL@purple_2048.ap4rwmw.mongodb.net/Purple_2048";
 let db=mongoose.connection;
@@ -85,7 +85,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.use(express.static(_dirname));
+app.use(express.static(__dirname));
 
 app.use("/api/users",authenticate);
 app.use("/api/users/bestScores",authenticate);
