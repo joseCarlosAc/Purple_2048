@@ -4,7 +4,7 @@ import  express  from "express";
 import chalk from "chalk";
 import cors from "cors";
 import randomatic from "randomatic";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import mongoose, { get } from "mongoose";
 import url from "url";
 import path from "path";
@@ -123,11 +123,11 @@ app.put("/api/login", async (req,res)=>{
             res.send("user doesn't exist");
             return;
         }
-        // if(!bcrypt.compareSync(req.body.password,user.password)){
-        //     res.status(401);
-        //     res.send("incorrect password");
-        //     return;
-        // }
+        if(!bcrypt.compareSync(req.body.password,user.password)){
+            res.status(401);
+            res.send("incorrect password");
+            return;
+        }
         if(user.token==undefined){
             user.token=randomatic('Aa0','10')+"-"+user._id;
             await user.save()
@@ -160,12 +160,11 @@ app.post("/api/users", async (req,res)=>{
     }try{
         let user= await User.find({username: req.body.username});
         if(user.length!=0){
-            //await User.deleteOne({"username":req.body.username});
             res.status(400);
             res.send("username already exist");
             return;
         }
-        //req.body.password=bcrypt.hashSync(req.body.password,10);
+        req.body.password=bcrypt.hashSync(req.body.password,10);
         user= await User(req.body);
         await user.save();
         res.status(201);
