@@ -63,14 +63,14 @@ async function authenticate(req, res, next){
     }
     if(!req.get("x-auth-user")){
         res.status(401);
-        res.send("missing token");
+        res.send("Missing token");
         return;
     }
     try{
         let user=await User.findOne({token:req.get("x-auth-user")});
         if(user==undefined){
             res.status(401);
-            res.send("invalid token");
+            res.send("Invalid token");
             return;
         }
         req.id=user._id;
@@ -96,7 +96,7 @@ app.use("/api/users/leaders",authenticate);
 app.use("/api/users/saveGames",authenticate);
 
 app.get("/",(req,res)=>{
-    res.sendFile(path.join(_dirname,"./FRONTEND/login.html"));
+    res.sendFile(path.join(__dirname,"./FRONTEND/login.html"));
 });
 
 app.put("/api/login", async (req,res)=>{
@@ -120,12 +120,12 @@ app.put("/api/login", async (req,res)=>{
         let user= await User.findOne({username: req.body.username});
         if(user==null){
             res.status(401);
-            res.send("user doesn't exist");
+            res.send("User doesn't exist");
             return;
         }
         if(!bcrypt.compareSync(req.body.password,user.password)){
             res.status(401);
-            res.send("incorrect password");
+            res.send("Incorrect password");
             return;
         }
         if(user.token==undefined){
@@ -161,7 +161,7 @@ app.post("/api/users", async (req,res)=>{
         let user= await User.find({username: req.body.username});
         if(user.length!=0){
             res.status(400);
-            res.send("username already exist");
+            res.send("Username already exist");
             return;
         }
         req.body.password=bcrypt.hashSync(req.body.password,10);
@@ -239,7 +239,7 @@ app.put("/api/users/saveGames", async (req,res)=>{
         
         user.saveBoards.push(req.body);
         await user.save();
-        res.send("save successfully");
+        res.send("Save successfully");
 
     }catch(e){
         console.log(chalk.red(e.message));
@@ -292,7 +292,7 @@ app.put("/api/users/bestScores", async (req,res)=>{
             user.leader+=1;
         }
         await user.save();
-        res.send("save successfully");
+        res.send("Save successfully");
 
     }catch(e){
         console.log(chalk.red(e.message));
