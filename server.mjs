@@ -233,10 +233,16 @@ app.get("/api/users/leaders", async (req,res)=>{
 app.put("/api/users/saveGames", async (req,res)=>{
     try{
         let user= await User.findById(req.id);
+        
+        let index=user.saveBoards.findIndex(item=>item.name==req.body.name);
+        if(index!=-1){
+            user.saveBoards.splice(index,1);
+        }
+
         if(user.saveBoards!=undefined && user.saveBoards.length==5){
             user.saveBoards.shift();
         }
-        
+
         user.saveBoards.push(req.body);
         await user.save();
         res.send("Save successfully");
@@ -270,26 +276,29 @@ app.put("/api/users/bestScores", async (req,res)=>{
         if(user.bests.length>5){
             user.bests.pop();
         }
-        let lastBest= await User.where("leader").gt(0).sort({"best[0].score":1}).limit(1);
-        let saves= await User.where("leader"). gt(0).select("leader -_id");
-        let cnt=0;
-        saves.forEach(item=>{
-            cnt+=item.leader;
-        });
-        if(lastBest.length==0){
+        
+        let saves= await User.where("leader"). gt(0);
+        
+        if(saves.length==0){
             user.leader+=1
         }
-        else if(cnt==5 && lastBest[0].bests[0+lastBest[0].leader-1].score<req.body.score){
-            console.log(user.username);
-            console.log(lastBest[0].username);
-            if(user.username!=lastBest[0].username){
-                user.leader+=1;
-                lastBest[0].leader-=1;
-                await lastBest[0].save();   
+        else{ 
+            let cnt=0;
+            let lastBest=saves[0];
+            saves.forEach(item=>{
+                if(item.bests[item.leader-1].score<lastBest.bests[item.leader-1].score) lastBest=item;
+                cnt+=item.leader;
+            });
+            if(cnt==5 && lastBest.bests[lastBest.leader-1].score<req.body.score){
+                if(user.username!=lastBest.username){
+                    user.leader+=1;
+                    lastBest.leader-=1;
+                    await lastBest.save();
+                }
             }
-        }
-        else{
-            user.leader+=1;
+            else if(cnt<5){
+                user.leader+=1;
+            }
         }
         await user.save();
         res.send("Save successfully");

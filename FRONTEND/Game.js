@@ -35,6 +35,10 @@ window.addEventListener("keydown", function(e) {
   }
 }, false);
 
+$("#modalSave").on("hidden.bs.modal", function () {
+  document.getElementById("saveName").value="";
+});
+
 function makeRequest(method, url, headers=undefined, body=undefined) {
   return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest();
@@ -165,7 +169,7 @@ async function loadGames(){
     saves=JSON.parse(saves);
     if(saves.saveBoards==null) return;
     saves.saveBoards.forEach((item,index)=>{
-      document.getElementById("loads").insertAdjacentHTML("beforeend","<button class=\"btn btn-primary\" style=\"margin: 2vmin\" href=\"#\" onclick=\"loadGame("+index+")\">"+item.name+" - score: "+item.score+"</button>");
+      document.getElementById("loads").insertAdjacentHTML("beforeend","<button class=\"btn btn-primary\" style=\"margin: 2vmin\" href=\"#\" saveName=\""+item.name+"\" onclick=\"loadGame("+index+")\">"+item.name+" - score: "+item.score+"</button>");
     })
   }catch(e){
     console.log(e);
@@ -190,7 +194,10 @@ async function loadGame(index){
 
   document.getElementById("score").innerHTML="Score: "+save.score;
   $('#loadGame').modal('hide');
-  setupInput()
+  if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
+    gameOver();
+  }
+  else setupInput()
 }
 
 async function leaderBoard(){
@@ -249,7 +256,15 @@ async function gameOver(){
 }
 
 async function saveGame(save=false){
-  save=save? true: document.getElementById("loads").children.length<5;
+  let flag=true;
+  let children=document.getElementById("loads").children;
+  for(let i=0; i<children.length;i++){
+    if(children[i].getAttribute("saveName")==document.getElementById("saveName").value){
+      flag=false;
+      break;
+    }
+  }
+  save=save? true: document.getElementById("loads").children.length<5 && flag;
   if(save){
     let gameSave={
       "name": document.getElementById("saveName").value,
@@ -268,6 +283,11 @@ async function saveGame(save=false){
       alert(e.status + ': ' + e.response);
     }
   }else{
+    if(!flag) document.getElementById("warningMessage1").innerHTML="Are you sure you want to replace "+document.getElementById("saveName").value;
+    else {
+      debugger;
+      document.getElementById("warningMessage1").innerHTML="Are you sure you want to delete your oldest save game?";
+    }
     $('#modalWarning').modal({ show:true });
   }
 }
@@ -342,7 +362,6 @@ function moveLeft() {
 }
 
 function moveRight() {
-
   return slideTiles(grid.cellsByRow.map(row => [...row].reverse()));
 }
 

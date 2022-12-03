@@ -284,8 +284,9 @@
         <!-- cSpell: enable -->
         <div>
           <h3>You can save up to 5 games</h3>
-          <h7>If you already have 5 saved games, the oldest one will be deleted</h7>
-          <h7>(If you still want to save the oldest one, we recommend loading and saving it again.)</h7>
+          <h6>If you already have 5 saved games, the oldest one will be deleted</h6>
+          <h6>If you save a game with a name that already exist will replace this one</h6>
+          <h6>(If you still want to save the oldest one, we recommend loading and saving it again.)</h6>
         </div>
       </div>
       <div class="modal-footer">
@@ -307,7 +308,8 @@
           </button>
       </div>
       <div class="modal-body">
-        <h5>Are you sure you want to delete your oldest save game?</h5>
+        <!-- cSpell: enable -->
+        <h5 id="warningMessage1"></h5>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveGame(true)">Yes</button>
