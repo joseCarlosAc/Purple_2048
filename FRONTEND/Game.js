@@ -9,6 +9,7 @@ const Url="https://fine-jade-oyster-ring.cyclic.app/";
 const gameBoard = document.getElementById("game-board");
 
 var grid;
+var gridCopy;
 function logout(){
   delete localStorage.token;
   delete localStorage.id;
@@ -39,6 +40,11 @@ window.addEventListener("keydown", function(e) {
 
 $("#modalSave").on("hidden.bs.modal", function () {
   document.getElementById("saveName").value="";
+});
+
+$("#showBoard").on("hidden.bs.modal", function () {
+  grid=gridCopy;
+  setupInput();
 });
 
 function makeRequest(method, url, headers=undefined, body=undefined) {
@@ -99,8 +105,6 @@ async function initData(){
 
 async function editUser(){
   try{
-
-
     let body = {};
     console.log(document.getElementById("updatePassword").value);
     if(document.getElementById("updateEmail").value != ""){
@@ -193,6 +197,7 @@ async function bestScore(index){
   for(let i=children.length-1;i>=0;i--){
     board.removeChild(children[i]);
   }
+  gridCopy=grid;
   grid = new Grid(board, best.board);
 
   document.getElementById("bestScore").innerHTML="Score: "+best.score;
@@ -333,7 +338,6 @@ async function saveGame(save=false){
   }else{
     if(!flag) document.getElementById("warningMessage1").innerHTML="Are you sure you want to replace "+document.getElementById("saveName").value;
     else {
-      debugger;
       document.getElementById("warningMessage1").innerHTML="Are you sure you want to delete your oldest save game?";
     }
     $('#modalWarning').modal({ show:true });
