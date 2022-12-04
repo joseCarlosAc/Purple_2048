@@ -1,5 +1,7 @@
 "use strict";
 // cSpell:ignore randomatic
+
+//load, delete, ornanizar
 import  express  from "express";
 import chalk from "chalk";
 import cors from "cors";
@@ -77,6 +79,8 @@ async function authenticate(req, res, next){
         next();
     }catch(e){
         console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
     }
 }
 
@@ -89,11 +93,9 @@ app.use(express.static(__dirname));
 
 app.use("/api/users",authenticate);
 app.use("/api/users/bestScores",authenticate);
-app.use("/api/users/bestScore",authenticate);
-app.use("/api/users/loadGames",authenticate);
-app.use("/api/users/loadGame",authenticate);
-app.use("/api/users/leaders",authenticate);
 app.use("/api/users/saveGames",authenticate);
+app.use("/api/users/leaders",authenticate);
+
 
 app.get("/",(req,res)=>{
     res.sendFile(path.join(__dirname,"./FRONTEND/login.html"));
@@ -135,6 +137,20 @@ app.put("/api/login", async (req,res)=>{
         res.send(user.token);
     }catch(e){
         console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
+    }
+});
+
+app.get("/api/users", async (req,res)=>{
+    try{
+        let user= await User.findById(req.id);
+        res.send(user);
+
+    }catch(e){
+        console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
     }
 });
 
@@ -172,16 +188,8 @@ app.post("/api/users", async (req,res)=>{
 
     }catch(e){
         console.log(chalk.red(e.message));
-    }
-});
-
-app.get("/api/users", async (req,res)=>{
-    try{
-        let user= await User.findById(req.id);
-        res.send(user);
-
-    }catch(e){
-        console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
     }
 });
 
@@ -189,20 +197,20 @@ app.put("/api/users", async (req,res)=>
 {
     try{
         let user= await User.findById(req.id);
-        console.log(!bcrypt.compareSync(req.body.password,user.password));
         if(req.body.oldPassword != undefined && !bcrypt.compareSync(req.body.oldPassword,user.password)){
             res.status(401);
             res.send("Wrong password");
             return;
         }
         if(req.body.username != undefined){
-            let norepUsername = await User.find({username: req.body.username}) 
-            if( norepUsername.length != 0){
+            let usernameUnique = await User.find({username: req.body.username}) 
+            if( usernameUnique.length != 0){
                 res.status(400);
                 res.send("Username already exists...");
                 return;
             }
         }
+        req.body.password=bcrypt.hashSync(req.body.password,10);
         user = Object.assign(user,req.body);
         await user.save();
         res.send(JSON.stringify(user));
@@ -217,78 +225,18 @@ app.put("/api/users", async (req,res)=>
 
 app.get("/api/users/bestScores", async (req,res)=>{
     try{
-        let best= await User.findById(req.id).select("bests -_id");
-        res.send(JSON.stringify(best));
-
-    }catch(e){
-        console.log(chalk.red(e.message));
-    }
-});
-
-app.get("/api/users/loadGames", async (req,res)=>{
-    try{
-        let saves= await User.findById(req.id).select("saveBoards -_id");
-        res.send(JSON.stringify(saves));
-
-    }catch(e){
-        console.log(chalk.red(e.message));
-    }
-});
-
-app.get("/api/users/leaders", async (req,res)=>{
-    try{
-        let saves= await User.where("leader"). gt(0).select("leader bests username -_id");
-        if(saves.length==0){
-            res.send(JSON.stringify(saves));
+        if(req.query.index==undefined){
+            let best= await User.findById(req.id).select("bests -_id");
+            res.send(JSON.stringify(best));
             return;
         }
-        let leaders=[];
-        saves.forEach(item=>{
-            for(let i=0; i<item.leader; i++){
-                leaders.push({
-                    "username":item.username,
-                    "score":item.bests[i].score
-                });
-            }
-        });
-
-        leaders.sort((a,b)=>b.score-a.score);
-        res.send(JSON.stringify(leaders));
-        
-    }catch(e){
-        console.log(chalk.red(e.message));
-    }
-});
-
-app.put("/api/users/saveGames", async (req,res)=>{
-    try{
-        let user= await User.findById(req.id);
-        
-        let index=user.saveBoards.findIndex(item=>item.name==req.body.name);
-        if(index!=-1){
-            user.saveBoards.splice(index,1);
-        }
-
-        if(user.saveBoards!=undefined && user.saveBoards.length==5){
-            user.saveBoards.shift();
-        }
-
-        user.saveBoards.push(req.body);
-        await user.save();
-        res.send("Save successfully");
+        let best= await User.findById(req.id).select("bests -_id");
+        res.send(JSON.stringify(best.bests[req.query.index]));
 
     }catch(e){
         console.log(chalk.red(e.message));
-    }
-});
-
-app.get("/api/users/loadGame", async (req,res)=>{
-    try{
-        let saves= await User.findById(req.id).select("saveBoards -_id");
-        res.send(JSON.stringify(saves.saveBoards[req.get("index")]));
-
-    }catch(e){
-        console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
     }
 });
 
@@ -335,16 +283,76 @@ app.put("/api/users/bestScores", async (req,res)=>{
 
     }catch(e){
         console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
     }
 });
 
-app.get("/api/users/bestScore", async (req,res)=>{
+app.get("/api/users/saveGames", async (req,res)=>{
     try{
-        let best= await User.findById(req.id).select("bests -_id");
-        res.send(JSON.stringify(best.bests[req.get("index")]));
+        if(req.query.index==undefined){
+            let saves= await User.findById(req.id).select("saveBoards -_id");
+        res.send(JSON.stringify(saves));
+        return;
+        }
+        let saves= await User.findById(req.id).select("saveBoards -_id");
+        res.send(JSON.stringify(saves.saveBoards[req.query.index]));
 
     }catch(e){
         console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
+    }
+});
+
+app.put("/api/users/saveGames", async (req,res)=>{
+    try{
+        let user= await User.findById(req.id);
+        
+        let index=user.saveBoards.findIndex(item=>item.name==req.body.name);
+        if(index!=-1){
+            user.saveBoards.splice(index,1);
+        }
+
+        if(user.saveBoards!=undefined && user.saveBoards.length==5){
+            user.saveBoards.shift();
+        }
+
+        user.saveBoards.push(req.body);
+        await user.save();
+        res.send("Save successfully");
+
+    }catch(e){
+        console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
+    }
+});
+
+app.get("/api/users/leaders", async (req,res)=>{
+    try{
+        let saves= await User.where("leader"). gt(0).select("leader bests username -_id");
+        if(saves.length==0){
+            res.send(JSON.stringify(saves));
+            return;
+        }
+        let leaders=[];
+        saves.forEach(item=>{
+            for(let i=0; i<item.leader; i++){
+                leaders.push({
+                    "username":item.username,
+                    "score":item.bests[i].score
+                });
+            }
+        });
+
+        leaders.sort((a,b)=>b.score-a.score);
+        res.send(JSON.stringify(leaders));
+        
+    }catch(e){
+        console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
     }
 });
 

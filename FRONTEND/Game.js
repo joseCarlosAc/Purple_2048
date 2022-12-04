@@ -41,8 +41,6 @@ $("#modalSave").on("hidden.bs.modal", function () {
 });
 
 function makeRequest(method, url, headers=undefined, body=undefined) {
-  gameBoard.classList.add("over");
-  document.getElementById("gameOver").style.display="flex";
   return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest();
     xhr.open(method, Url+url);
@@ -184,10 +182,9 @@ async function bestScores(){
 
 async function bestScore(index){
   try{
-    let best= await makeRequest("GET","/api/users/bestScore",[
+    let best= await makeRequest("GET","/api/users/bestScores?index="+index,[
     {"name":"x-auth-user","value":localStorage.token},
     {"name":"Content-Type","value":"application/json"},
-    {"name": "index","value":index}
   ]);
   best=JSON.parse(best);
   let board=document.getElementById("bestGame-board");
@@ -207,7 +204,7 @@ async function bestScore(index){
 
 async function loadGames(){
   try{
-    let saves= await makeRequest("GET","/api/users/loadGames",[
+    let saves= await makeRequest("GET","/api/users/saveGames",[
       {"name":"x-auth-user","value":localStorage.token},
       {"name":"Content-Type","value":"application/json"}
     ]);
@@ -227,7 +224,7 @@ async function loadGames(){
 }
 
 async function loadGame(index){
-  let save= await makeRequest("GET","/api/users/loadGame",[
+  let save= await makeRequest("GET","/api/users/saveGames?index="+index,[
     {"name":"x-auth-user","value":localStorage.token},
     {"name":"Content-Type","value":"application/json"},
     {"name": "index","value":index}
