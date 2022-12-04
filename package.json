@@ -1,4 +1,22 @@
 {
+  "name": "Purple_2048",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "mocha --timeout 10000",
+    "dev": "node server.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PurpleOzone/Purple_2048.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PurpleOzone/Purple_2048/issues"
+  },
+  "homepage": "https://github.com/PurpleOzone/Purple_2048#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "chalk": "^5.1.2",
