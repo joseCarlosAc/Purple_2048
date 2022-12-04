@@ -1,81 +1,80 @@
+<!--cSpell: disable  -->
 <!doctype html>
 <html lang="en" pag="board">
-  <head>
-    <title>2048_Board</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/FRONTEND/Styles/ExtStyles.css">
-    <!--
-      
-    -->
-    <script defer src="/FRONTEND/Game.js" type="module"></script>
-  </head>
-  <body>
-      
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-       <!----Navbar----->
+<head>
+  <title>2048_Board</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/FRONTEND/Styles/ExtStyles.css">
+  
+  <script defer src="/FRONTEND/Game.js" type="module"></script>
+</head>
+
+<body>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <div>
+    <!----Navbar----->
     <nav class="navbar navbar-expand-sm navbar-dark" style="padding-bottom: 0.3vmin; padding-top: 0.3vmin;">
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-          aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="align-items:center">
-            <li class="nav-item active">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#userInfo"><img src="/FRONTEND/images/LOGIN.png" alt="Loginpa" height="40px" width="40px"><a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#bestScores" onclick="bestScores()"> My bests scores</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-target="#Leaderboard" data-toggle="modal" href="#" onclick="leaderBoard()">Leaderboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-target="#loadGame" data-toggle="modal" href="#" onclick="loadGames()">Load game</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav reigth mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a href="#" onclick="logout()"><img src="/FRONTEND/images/logout.png" alt="Valio madre" height="40px"></a>
-            </li>
-          </ul>
-        </div>
-    </nav> 
+      <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+      <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="align-items:center">
+          <li class="nav-item active">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#userInfo"><img src="/FRONTEND/images/LOGIN.png" alt="Loginpa" height="40px" width="40px"><a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#bestScores" onclick="bestScores()"> My bests scores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-target="#Leaderboard" data-toggle="modal" href="#" onclick="leaderBoard()">Leaderboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-target="#loadGame" data-toggle="modal" href="#" onclick="loadGames()">Load game</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav reigth mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a href="#" onclick="logout()"><img src="/FRONTEND/images/logout.png" alt="Valio madre" height="40px"></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <!----Tablero----->
     <div style=" align-items: center; display: flex; flex-direction: column; font-size:7.5vmin; ">
       <div class="board-header">
         <div class="board-left " style="width: 60%; display: flex;">
           <div style="display:inline-flex; margin-bottom:3vmin;">
-            <img src="/FRONTEND/images/2048_neon.png"  alt="error al cargar la imagen" height="75vmin" style="display: flex;">
+            <img src="/FRONTEND/images/2048_neon.png" alt="error al cargar la imagen" height="75vmin" style="display: flex;">
           </div>
           <div class="container" style=" display: flex; flex-direction: row; justify-content: space-between;color:white;">
             <p id="score">Score: 0</p>
             <p id="best"></p>
           </div>
         </div>
-        <div class="container" style="width: 50%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-content: space-around; ">
-          <div><button style ="width: 18vmin;"name="" id="newGame" class="btn btn-primary" onclick="newGame()">New Game</button></div>
-          <div><button style ="width: 18vmin;" name="" id="SaveGame" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">Save Game</button></div>
+        <div class="container" style="width: 50%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-content: space-around;">
+          <div><button style="width: 18vmin;" name="" id="newGame" class="btn btn-primary" onclick="newGame()">New Game</button></div>
+          <div><button style="width: 18vmin;" name="" id="SaveGame" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">Save Game</button></div>
+        </div>
       </div>
-    </div>
-
-      <div id="game-board" class="over"> 
+      <div id="game-board" class="over">
       </div>
-
       <div id="gameOver" style="position: absolute; top: 57vmin; align-items: center; display: none; flex-direction: column;">
         <h1 style="color: white; font-size: 5vmin; display: block;">Game Over</h1>
-        <div><button style ="width: 18vmin; "name="" id="newGame" class="btn btn-primary" onclick="newGame()">Try again</button></div>
+        <div><button style="width: 18vmin; " name="" id="newGame" class="btn btn-primary" onclick="newGame()">Try again</button></div>
       </div>
-
     </div>
+  </div>
+</body>
 
-  </body>
 </html>
 
 <!--Modal de leaderBoard-->
@@ -84,9 +83,9 @@
     <div class="modal-content" style="background-color:#EDEDED">
       <div class="modal-header">
         <h5 class="modal-title" style="color: #790252; font-style: oblique; font-weight: bold;">Leaderboard</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <table style="width:100%;">
@@ -94,7 +93,6 @@
             <th style="color: #AF0171;">Username</th>
             <th style="color: #AF0171;">Score</th>
           </tr>
-          <!--cSpell:  -->
           <tr>
             <td id="bestUser1">No one</td>
             <td id="bestScore1">0</td>
@@ -130,16 +128,16 @@
     <div class="modal-content" style="background-color:#EDEDED">
       <div class="modal-header">
         <h5 class="modal-title" style="color: #790252;">Best Scores</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body" style="display: flex; flex-direction:column;">
-          <button name="" id="score1" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(0)">Score: 0</button>
-          <button name="" id="score2" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(1)">Score: 0</button>
-          <button name="" id="score3" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(2)">Score: 0</button>
-          <button name="" id="score4" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(3)">Score: 0</button>
-          <button name="" id="score5" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(4)">Score: 0</button>
+        <button name="" id="score1" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(0)">Score: 0</button>
+        <button name="" id="score2" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(1)">Score: 0</button>
+        <button name="" id="score3" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(2)">Score: 0</button>
+        <button name="" id="score4" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(3)">Score: 0</button>
+        <button name="" id="score5" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(4)">Score: 0</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#AF0171; border: none;">Close</button>
@@ -154,12 +152,11 @@
     <div class="modal-content" style="background-color:#EDEDED">
       <div class="modal-header">
         <h5 class="modal-title" style="color: #790252;">Load Games</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body" style="display: flex; flex-direction:column;" id="loads">
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#AF0171; border: none;">Close</button>
@@ -174,9 +171,9 @@
     <div class="modal-content" style="width: 75vmin;">
       <div class="modal-header">
         <h5 class="modal-title" style="color: #790252;" id="bestScore"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body" style=" background-color:#404258; display: flex; flex-direction: column; justify-content: flex-start;margin: 0 auto;">
         <div id="bestGame-board">
@@ -195,9 +192,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" style="color: #790252">Profile Information</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body" style=" background-color:#EDEDED">
         <h4 id="username"></h4>
@@ -205,18 +202,19 @@
         <h4 id="email"></h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-        <button type="button" class="btn btn-primary" data-target="#modalEdit" data-toggle="modal">Edit Information </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-target="#modalEdit" data-toggle="modal">Edit Information
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <!--Modal de editar información de usuario -->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" >
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="background-color: #FBAFFF;">
-      <div class="modal-header" style="background-color: #AF0171;" >
+      <div class="modal-header" style="background-color: #AF0171;">
         <h5 class="modal-title" style="color: white;">Edit your profile</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -227,25 +225,25 @@
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="updateUsername" ALIGN=LEFT>Username</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="updateUsername" name="newUser" aria-describedby="helpId" placeholder="Pick a username" >
+              <input type="text" class="form-control" id="updateUsername" name="newUser" aria-describedby="helpId" placeholder="Pick a username">
             </div>
           </div>
-          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;" >
+          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="updateEmail" ALIGN=LEFT>Email</label>
             <div class="input-group">
-              <input type="email" class="form-control" id="updateEmail" name="updateEmail" aria-describedby="helpId" placeholder="Introduce a email" >
+              <input type="email" class="form-control" id="updateEmail" name="updateEmail" aria-describedby="helpId" placeholder="Introduce a email">
             </div>
           </div>
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="oldPassword" ALIGN=LEFT>Old Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="oldPassword" aria-describedby="helpId" placeholder="insert your old password to change for a new password" >
+              <input type="password" class="form-control" id="oldPassword" aria-describedby="helpId" placeholder="insert your old password to change for a new password">
             </div>
           </div>
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="updatePassword" ALIGN=LEFT>New Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="updatePassword" aria-describedby="helpId" placeholder="Set a password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+              <input type="password" class="form-control" id="updatePassword" aria-describedby="helpId" placeholder="Set a password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
             </div>
           </div>
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
@@ -254,7 +252,7 @@
               <input type="password" class="form-control" id="passwordConfirm" name="newUser" aria-describedby="helpId" placeholder="Confirm the password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
             </div>
           </div>
-          <button class="btn" type="submit" style="background-color: #790252; color: white; padding: .375rem 3rem;"  >Save Changes</button>
+          <button class="btn" type="submit" style="background-color: #790252; color: white; padding: .375rem 3rem;">Save Changes</button>
         </form>
       </div>
     </div>
@@ -267,9 +265,9 @@
     <div class="modal-content" style="background-color: #FBAFFF;">
       <div class="modal-header" style="background-color: #AF0171;">
         <h5 class="modal-title" style="color: white;">Save game</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <form action="javascript:saveGame()" class="row">
@@ -290,7 +288,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" style="background-color: #790252; color: white; padding: .375rem 3rem;" data-dismiss="modal">Close</button>
-        
       </div>
     </div>
   </div>
@@ -302,9 +299,9 @@
     <div class="modal-content" style="background-color: #FBAFFF;">
       <div class="modal-header" style="background-color: #AF0171;">
         <h5 class="modal-title" style="color: white;">Warning</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <!-- cSpell: enable -->
@@ -313,7 +310,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveGame(true)">Yes</button>
         <button type="button" class="btn" style="background-color: #790252; color: white; padding: .375rem 3rem;" data-dismiss="modal">No</button>
-        
       </div>
     </div>
   </div>

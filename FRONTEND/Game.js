@@ -3,7 +3,8 @@
 import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 
-const Url="http://localhost:3000";
+// const Url="http://localhost:3000";
+const Url="https://fine-jade-oyster-ring.cyclic.app/";
 
 const gameBoard = document.getElementById("game-board");
 
