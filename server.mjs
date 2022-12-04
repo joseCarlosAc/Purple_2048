@@ -319,4 +319,6 @@ app.get("/api/users/bestScore", async (req,res)=>{
 });
 
 mongoose.connect(mongoConnection,{useNewUrlParser:true});
-app.listen(port);
+app.listen(port,() => {
+    console.log("API running on port " + port);
+});
