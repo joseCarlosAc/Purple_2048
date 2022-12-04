@@ -1,10 +1,10 @@
 "use strict";
-// cSpell:ignore 2vmin
+// cSpell:ignore 2vmin Leaderboard
 import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 
-// const Url="http://localhost:3000";
-const Url="https://fine-jade-oyster-ring.cyclic.app/";
+const Url="http://localhost:3000";
+// const Url="https://fine-jade-oyster-ring.cyclic.app/";
 
 const gameBoard = document.getElementById("game-board");
 
@@ -48,6 +48,16 @@ $("#showBoard").on("hidden.bs.modal", function () {
 });
 
 function makeRequest(method, url, headers=undefined, body=undefined) {
+  document.getElementById("main").classList.add("over");
+  document.getElementById("Leaderboard").classList.add("over");
+  document.getElementById("bestScores").classList.add("over");
+  document.getElementById("loadGame").classList.add("over");
+  document.getElementById("showBoard").classList.add("over");
+  document.getElementById("userInfo").classList.add("over");
+  document.getElementById("modalEdit").classList.add("over");
+  document.getElementById("modalSave").classList.add("over");
+  document.getElementById("modalWarning").classList.add("over");
+  document.getElementById("lottie").style.display="block";
   return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest();
     xhr.open(method, Url+url);
@@ -57,6 +67,16 @@ function makeRequest(method, url, headers=undefined, body=undefined) {
       });
     }
     xhr.onload = function () {
+      document.getElementById("main").classList.remove("over");
+  document.getElementById("Leaderboard").classList.remove("over");
+  document.getElementById("bestScores").classList.remove("over");
+  document.getElementById("loadGame").classList.remove("over");
+  document.getElementById("showBoard").classList.remove("over");
+  document.getElementById("userInfo").classList.remove("over");
+  document.getElementById("modalEdit").classList.remove("over");
+  document.getElementById("modalSave").classList.remove("over");
+  document.getElementById("modalWarning").classList.remove("over");
+  document.getElementById("lottie").style.display="none";
       if (this.status >= 200 && this.status < 300) {
         resolve(xhr.response);
       } else {

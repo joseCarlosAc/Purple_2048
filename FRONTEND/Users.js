@@ -1,5 +1,5 @@
-// const Url="http://localhost:3000";
-const Url="https://fine-jade-oyster-ring.cyclic.app/";
+const Url="http://localhost:3000";
+// const Url="https://fine-jade-oyster-ring.cyclic.app/";
 
 function login(){
     let log={
