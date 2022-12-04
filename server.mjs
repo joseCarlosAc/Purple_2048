@@ -185,6 +185,36 @@ app.get("/api/users", async (req,res)=>{
     }
 });
 
+app.put("/api/users", async (req,res)=>
+{
+    try{
+        let user= await User.findById(req.id);
+        console.log(!bcrypt.compareSync(req.body.password,user.password));
+        if(req.body.oldPassword != undefined && !bcrypt.compareSync(req.body.oldPassword,user.password)){
+            res.status(401);
+            res.send("Wrong password");
+            return;
+        }
+        if(req.body.username != undefined){
+            let norepUsername = await User.find({username: req.body.username}) 
+            if( norepUsername.length != 0){
+                res.status(400);
+                res.send("Username already exists...");
+                return;
+            }
+        }
+        user = Object.assign(user,req.body);
+        await user.save();
+        res.send(JSON.stringify(user));
+
+    }catch(e){
+        console.log(chalk.red(e.message));
+        res.status(500);
+        res.send("Fatal Error");
+    }
+
+});
+
 app.get("/api/users/bestScores", async (req,res)=>{
     try{
         let best= await User.findById(req.id).select("bests -_id");

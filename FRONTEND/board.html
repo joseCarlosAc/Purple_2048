@@ -1,4 +1,3 @@
-<!-- cSpell: disable -->
 <!doctype html>
 <html lang="en" pag="board">
   <head>
@@ -38,7 +37,7 @@
               <a class="nav-link" data-target="#Leaderboard" data-toggle="modal" href="#" onclick="leaderBoard()">Leaderboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-target="#loadGame" data-toggle="modal" href="#" onclick="loadGames()">load game</a>
+              <a class="nav-link" data-target="#loadGame" data-toggle="modal" href="#" onclick="loadGames()">Load game</a>
             </li>
           </ul>
           <ul class="navbar-nav reigth mt-2 mt-lg-0">
@@ -79,7 +78,7 @@
   </body>
 </html>
 
-<!--Modal de liderBoard-->
+<!--Modal de leaderBoard-->
 <div class="modal fade" id="Leaderboard" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="background-color:#EDEDED">
@@ -224,38 +223,38 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="formNewUser" action="javascript:alert(User Created)">
+        <form id="formNewUser" action="javascript:editUser()">
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="updateUsername" ALIGN=LEFT>Username</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="updateUsername" name="newUser" aria-describedby="helpId" placeholder="Pick a username" required value = "?????">
+              <input type="text" class="form-control" id="updateUsername" name="newUser" aria-describedby="helpId" placeholder="Pick a username" >
             </div>
           </div>
-          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;" value = "?????">
+          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;" >
             <label for="updateEmail" ALIGN=LEFT>Email</label>
             <div class="input-group">
-              <input type="email" class="form-control" id="updateEmail" name="updateEmail" aria-describedby="helpId" placeholder="Introduce a email" required value = "?????">
+              <input type="email" class="form-control" id="updateEmail" name="updateEmail" aria-describedby="helpId" placeholder="Introduce a email" >
             </div>
           </div>
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="oldPassword" ALIGN=LEFT>Old Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="oldPassword" aria-describedby="helpId" placeholder="insert your old password to change for a new password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+              <input type="password" class="form-control" id="oldPassword" aria-describedby="helpId" placeholder="insert your old password to change for a new password" >
             </div>
           </div>
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="updatePassword" ALIGN=LEFT>New Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="updatePassword" aria-describedby="helpId" placeholder="Set a password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+              <input type="password" class="form-control" id="updatePassword" aria-describedby="helpId" placeholder="Set a password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
             </div>
           </div>
           <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
             <label for="passwordConfirm" ALIGN=LEFT>Confirm Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="passwordConfirm" name="newUser" aria-describedby="helpId" placeholder="Confirm the password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+              <input type="password" class="form-control" id="passwordConfirm" name="newUser" aria-describedby="helpId" placeholder="Confirm the password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
             </div>
           </div>
-          <button class="btn" type="submit" style="background-color: #790252; color: white; padding: .375rem 3rem;" >Save Changes</button>
+          <button class="btn" type="submit" style="background-color: #790252; color: white; padding: .375rem 3rem;"  >Save Changes</button>
         </form>
       </div>
     </div>

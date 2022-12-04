@@ -25,6 +25,7 @@ window.addEventListener("load", function(){
     this.window.saveGame=saveGame;
     this.window.loadGame=loadGame;
     this.window.bestScore=bestScore;
+    this.window.editUser=editUser;
     initData();  
   }
 });
@@ -40,6 +41,8 @@ $("#modalSave").on("hidden.bs.modal", function () {
 });
 
 function makeRequest(method, url, headers=undefined, body=undefined) {
+  gameBoard.classList.add("over");
+  document.getElementById("gameOver").style.display="flex";
   return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest();
     xhr.open(method, Url+url);
@@ -93,6 +96,52 @@ async function initData(){
     console.log(e);
     alert(e.status + ': ' + e.response);
   }
+}
+
+async function editUser(){
+  try{
+
+
+    let body = {};
+    console.log(document.getElementById("updatePassword").value);
+    if(document.getElementById("updateEmail").value != ""){
+      body.email = document.getElementById("updateEmail").value;
+    }
+    if(document.getElementById("updateUsername").value != "" &&  document.getElementById("username").innerHTML.substring(10) !=  document.getElementById("updateUsername").value ){
+      body.username = document.getElementById("updateUsername").value;
+    }
+    if(document.getElementById("updatePassword").value != ""){
+      if(document.getElementById("oldPassword").value == ""){
+        alert("In order to change your password you have to type your actual password");
+        return;
+      }
+      if(document.getElementById("passwordConfirm").value == document.getElementById("updatePassword" ).value){
+        body.password = document.getElementById("updatePassword").value;
+        body.oldPassword = document.getElementById("oldPassword").value;
+      }else{
+        alert("Passwords do not match...");
+        return;
+      }
+    }
+
+    let editedUser= await makeRequest("PUT","/api/users",[
+      {"name":"x-auth-user","value":localStorage.token},
+      {"name":"Content-Type","value":"application/json"}
+    ], body);
+
+    let user = JSON.parse(editedUser);
+    alert("Changes in profile saved correctly");
+    document.getElementById("username").innerHTML=("Username: "+ user.username);
+    document.getElementById("email").innerHTML=("Email: "+ user.email);
+    document.getElementById("updateUsername").value=user.username;
+    document.getElementById("updateEmail").value=user.email;
+    $('#modalEdit').modal('hide');
+
+  }catch(e){
+    console.log(e);
+    alert(e.status + ': ' + e.response);
+  }
+
 }
 
 async function bestScores(){
@@ -234,6 +283,7 @@ function newGame(){
 
   setupInput()
 }
+
 
 async function gameOver(){
   gameBoard.classList.add("over");
