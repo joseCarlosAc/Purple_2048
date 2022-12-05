@@ -5,7 +5,7 @@ import Tile from "/FRONTEND/Tile.js";
 import {makeRequest,editUser,initData,login,bestScores,loadGames,leaderBoard,createUser,logout,deleteUser} from "/FRONTEND/Users.js";
 
 // const Url="http://localhost:3000";
-const Url="https://fine-jade-oyster-ring.cyclic.app/";
+const Url="https://purple2048.cyclic.app/";
 
 export const gameBoard = document.getElementById("game-board");
 
