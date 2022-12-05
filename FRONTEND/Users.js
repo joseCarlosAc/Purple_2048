@@ -1,8 +1,8 @@
 // cSpell:ignore Leaderboard
 export { makeRequest, editUser, initData, login, bestScores, loadGames, leaderBoard, createUser, logout, deleteUser };
 
-// const Url = "http://localhost:3000";
-const Url="https://purple2048.cyclic.app/";
+const Url = "http://localhost:3000";
+// const Url="https://purple2048.cyclic.app/";
 
 function makeRequest(method, url, headers = undefined, body = undefined) {
     document.getElementById("main").classList.add("over");
@@ -76,7 +76,7 @@ function login() {
 
 function logout() {
     delete localStorage.token;
-    window.location.href = Url;
+    window.location.href = "/FRONTEND/login.html";
 }
 
 async function createUser() {
