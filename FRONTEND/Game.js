@@ -2,10 +2,10 @@
 // cSpell:ignore 2vmin Leaderboard
 import Grid from "/FRONTEND/Grid.js";
 import Tile from "/FRONTEND/Tile.js";
-import {makeRequest,editUser,initData,login,bestScores,loadGames,leaderBoard,createUser,logout} from "/FRONTEND/Users.js";
+import {makeRequest,editUser,initData,login,bestScores,loadGames,leaderBoard,createUser,logout,deleteUser} from "/FRONTEND/Users.js";
 
-const Url="http://localhost:3000";
-// const Url="https://fine-jade-oyster-ring.cyclic.app/";
+// const Url="http://localhost:3000";
+const Url="https://fine-jade-oyster-ring.cyclic.app/";
 
 export const gameBoard = document.getElementById("game-board");
 
@@ -26,6 +26,7 @@ window.addEventListener("load", function(){
     this.window.loadGame=loadGame;
     this.window.bestScore=bestScore;
     this.window.editUser=editUser;
+    this.window.deleteUser=deleteUser;
     initData();  
   }
   else{
@@ -47,6 +48,13 @@ $("#modalSave").on("hidden.bs.modal",()=> {
 $("#modalEdit").on("shown.bs.modal",()=>{
   document.getElementById("updateUsername").value=document.getElementById("username").innerHTML.substring(10);
   document.getElementById("updateEmail").value=document.getElementById("email").innerHTML.substring(7);
+});
+
+$("#modalCreate").on("shown.bs.modal",()=>{
+  document.getElementById("newUsername").value="";
+  document.getElementById("newEmail").value="";
+  document.getElementById("newPassword").value="";
+  document.getElementById("confPassword").value="";
 });
 
 $("#showBoard").on("hidden.bs.modal",()=>{

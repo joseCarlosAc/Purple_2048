@@ -208,9 +208,9 @@
         <h4 id="email"></h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-target="#modalEdit" data-toggle="modal">Edit Information
-        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-target="#modalDelete" data-toggle="modal">Delete user</button>
+        <button type="button" class="btn btn-primary" data-target="#modalEdit" data-toggle="modal">Edit Information</button>
       </div>
     </div>
   </div>
@@ -315,6 +315,28 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveGame(true)">Yes</button>
+        <button type="button" class="btn" style="background-color: #790252; color: white; padding: .375rem 3rem;" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal warning-->
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: #FBAFFF;">
+      <div class="modal-header" style="background-color: #AF0171;">
+        <h5 class="modal-title" style="color: white;">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- cSpell: enable -->
+        <h5>Are you sure you want to delete your account</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteUser()">Yes</button>
         <button type="button" class="btn" style="background-color: #790252; color: white; padding: .375rem 3rem;" data-dismiss="modal">No</button>
       </div>
     </div>

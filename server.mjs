@@ -1,7 +1,7 @@
 "use strict";
 // cSpell:ignore randomatic
 
-//load, delete, ornanizar
+// delete
 import  express  from "express";
 import chalk from "chalk";
 import cors from "cors";
@@ -220,6 +220,17 @@ app.put("/api/users", async (req,res)=>{
         res.send("Fatal Error");
     }
 
+});
+
+app.delete("/api/users",async (req,res)=>{
+    try {
+        await User.deleteOne({"_id":req.id});
+        res.send();
+    } catch (e) {
+        console.log(chalk.red(e));
+        res.status(500);
+        res.send("Fatal Error");
+    }
 });
 
 app.get("/api/users/bestScores", async (req,res)=>{

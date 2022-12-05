@@ -132,7 +132,7 @@ div p {
 }
 
 .btn-primary:active {
-    background: #09223b;
+    background: #6605a7;
     color: rgb(255, 255, 255, .7);
 }
 
@@ -140,6 +140,40 @@ div p {
     color: #fff;
     background-color: #4b007d96;
     border-color: #4b007d96;
+}
+
+.btn-secondary {
+    background-color: #AF0171;
+    border:none ;
+}
+
+.btn-secondary:hover {
+    background-color: #91005e;
+}
+
+.btn-secondary.focus, .btn-secondary:focus {
+    box-shadow: 0 0 0 0.2rem #af01729f;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: #91005ec4;
+    border-color: #91005ec4;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active:focus, .btn-secondary:not(:disabled):not(.disabled):active:focus, .show>.btn-secondary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem #af01729f;
+}
+
+.btn-secondary:active {
+    background: #c90584;
+    color: rgb(255, 255, 255, .7);
+}
+
+  .btn-secondary.disabled, .btn-secondary:disabled {
+    color: #fff;
+    background-color: #af01729f;
+    border-color: #af01729f;
 }
 
 .t2 {
