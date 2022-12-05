@@ -1,24 +1,22 @@
 "use strict";
 // cSpell:ignore 2vmin Leaderboard
-import Grid from "./Grid.js";
-import Tile from "./Tile.js";
+import Grid from "/FRONTEND/Grid.js";
+import Tile from "/FRONTEND/Tile.js";
+import {makeRequest,editUser,initData,login,bestScores,loadGames,leaderBoard,createUser,logout} from "/FRONTEND/Users.js";
 
 const Url="http://localhost:3000";
 // const Url="https://fine-jade-oyster-ring.cyclic.app/";
 
-const gameBoard = document.getElementById("game-board");
+export const gameBoard = document.getElementById("game-board");
 
-var grid;
-var gridCopy;
-function logout(){
-  delete localStorage.token;
-  delete localStorage.id;
-  window.location.href ="/FRONTEND/login.html";
-}
+export var grid;
+export var gridCopy;
+
+
 
 window.addEventListener("load", function(){
-  if(this.localStorage.token==undefined) this.window.location.href="/FRONTEND/login.html";
   if(document.firstElementChild.getAttribute("pag")=="board"){
+    if(this.localStorage.token==undefined) this.window.location.href="/FRONTEND/login.html";
     this.window.newGame=newGame;
     this.window.logout = logout;
     this.window.bestScores=bestScores;
@@ -30,180 +28,31 @@ window.addEventListener("load", function(){
     this.window.editUser=editUser;
     initData();  
   }
+  else{
+    this.window.login=login;
+    this.window.createUser=createUser;
+  }
 });
 
-window.addEventListener("keydown", function(e) {
+window.addEventListener("keydown",e=>{
   if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
       e.preventDefault();
   }
 }, false);
 
-$("#modalSave").on("hidden.bs.modal", function () {
+$("#modalSave").on("hidden.bs.modal",()=> {
   document.getElementById("saveName").value="";
 });
 
-$("#showBoard").on("hidden.bs.modal", function () {
+$("#modalEdit").on("shown.bs.modal",()=>{
+  document.getElementById("updateUsername").value=document.getElementById("username").innerHTML.substring(10);
+  document.getElementById("updateEmail").value=document.getElementById("email").innerHTML.substring(7);
+});
+
+$("#showBoard").on("hidden.bs.modal",()=>{
   grid=gridCopy;
   setupInput();
 });
-
-function makeRequest(method, url, headers=undefined, body=undefined) {
-  document.getElementById("main").classList.add("over");
-  document.getElementById("Leaderboard").classList.add("over");
-  document.getElementById("bestScores").classList.add("over");
-  document.getElementById("loadGame").classList.add("over");
-  document.getElementById("showBoard").classList.add("over");
-  document.getElementById("userInfo").classList.add("over");
-  document.getElementById("modalEdit").classList.add("over");
-  document.getElementById("modalSave").classList.add("over");
-  document.getElementById("modalWarning").classList.add("over");
-  document.getElementById("lottie").style.display="block";
-  return new Promise(function (resolve, reject) {
-    let xhr = new XMLHttpRequest();
-    xhr.open(method, Url+url);
-    if(headers!=undefined){
-      headers.forEach(item=>{
-        xhr.setRequestHeader(item.name,item.value);
-      });
-    }
-    xhr.onload = function () {
-      document.getElementById("main").classList.remove("over");
-  document.getElementById("Leaderboard").classList.remove("over");
-  document.getElementById("bestScores").classList.remove("over");
-  document.getElementById("loadGame").classList.remove("over");
-  document.getElementById("showBoard").classList.remove("over");
-  document.getElementById("userInfo").classList.remove("over");
-  document.getElementById("modalEdit").classList.remove("over");
-  document.getElementById("modalSave").classList.remove("over");
-  document.getElementById("modalWarning").classList.remove("over");
-  document.getElementById("lottie").style.display="none";
-      if (this.status >= 200 && this.status < 300) {
-        resolve(xhr.response);
-      } else {
-        reject({
-          status: this.status,
-          response: xhr.response
-        });
-      }
-    };
-    xhr.onerror = function () {
-      reject({
-        status: this.status,
-        response: xhr.response
-      });
-    };
-    if(body==undefined) xhr.send();
-    else {
-      xhr.send(JSON.stringify(body));
-    }
-  });
-}
-
-async function initData(){
-  try{
-    let user= await makeRequest("GET","/api/users",[
-      {"name":"x-auth-user","value":localStorage.token},
-      {"name":"Content-Type","value":"application/json"}
-    ]);
-    user=JSON.parse(user);
-    document.getElementById("username").innerHTML=("Username: "+ user.username);
-    document.getElementById("email").innerHTML=("Email: "+ user.email);
-    if(user.bests.length==0){
-      document.getElementById("best").innerHTML="Best: 0";
-    }
-    else{
-      document.getElementById("best").innerHTML=("Best: "+user.bests[0].score);
-    }
-    document.getElementById("updateUsername").value=user.username;
-    document.getElementById("updateEmail").value=user.email;
-    newGame();
-  }catch(e){
-    console.log(e);
-    alert(e.status + ': ' + e.response);
-  }
-}
-
-async function editUser(){
-  try{
-    let body = {};
-    console.log(document.getElementById("updatePassword").value);
-    if(document.getElementById("updateEmail").value != ""){
-      body.email = document.getElementById("updateEmail").value;
-    }
-    if(document.getElementById("updateUsername").value != "" &&  document.getElementById("username").innerHTML.substring(10) !=  document.getElementById("updateUsername").value ){
-      body.username = document.getElementById("updateUsername").value;
-    }
-    if(document.getElementById("updatePassword").value != ""){
-      if(document.getElementById("oldPassword").value == ""){
-        alert("In order to change your password you have to type your actual password");
-        return;
-      }
-      if(document.getElementById("passwordConfirm").value == document.getElementById("updatePassword" ).value){
-        body.password = document.getElementById("updatePassword").value;
-        body.oldPassword = document.getElementById("oldPassword").value;
-      }else{
-        alert("Passwords do not match...");
-        return;
-      }
-    }
-
-    let editedUser= await makeRequest("PUT","/api/users",[
-      {"name":"x-auth-user","value":localStorage.token},
-      {"name":"Content-Type","value":"application/json"}
-    ], body);
-
-    let user = JSON.parse(editedUser);
-    alert("Changes in profile saved correctly");
-    document.getElementById("username").innerHTML=("Username: "+ user.username);
-    document.getElementById("email").innerHTML=("Email: "+ user.email);
-    document.getElementById("updateUsername").value=user.username;
-    document.getElementById("updateEmail").value=user.email;
-    $('#modalEdit').modal('hide');
-
-  }catch(e){
-    console.log(e);
-    alert(e.status + ': ' + e.response);
-  }
-
-}
-
-async function bestScores(){
-  try{
-    let bestScores= await makeRequest("GET","/api/users/bestScores",[
-      {"name":"x-auth-user","value":localStorage.token},
-      {"name":"Content-Type","value":"application/json"}
-    ]);
-    bestScores=JSON.parse(bestScores).bests;
-    if(bestScores.length==0){
-      document.getElementById("score1").disabled = true;
-      document.getElementById("score2").disabled = true;
-      document.getElementById("score3").disabled = true;
-      document.getElementById("score4").disabled = true;
-      document.getElementById("score5").disabled = true;
-
-      document.getElementById("score1").innerHTML="Score: 0";
-      document.getElementById("score2").innerHTML="Score: 0";
-      document.getElementById("score3").innerHTML="Score: 0";
-      document.getElementById("score4").innerHTML="Score: 0";
-      document.getElementById("score5").innerHTML="Score: 0";
-    }
-    else{
-      let cnt=0;
-      bestScores.forEach((item,index)=>{
-        document.getElementById("score"+(index+1)).innerHTML="Score: "+item.score;
-        document.getElementById("score"+(index+1)).disabled=false;
-        cnt++;
-      });
-      for(let i=cnt;i<5;i++){
-        document.getElementById("score"+(i+1)).disabled=true;
-      }
-    }
-
-  }catch(e){
-    console.log(e);
-    alert(e.status + ': ' + e.response);
-  }
-}
 
 async function bestScore(index){
   try{
@@ -222,27 +71,6 @@ async function bestScore(index){
 
   document.getElementById("bestScore").innerHTML="Score: "+best.score;
 
-  }catch(e){
-    console.log(e);
-    alert(e.status + ': ' + e.response);
-  }
-}
-
-async function loadGames(){
-  try{
-    let saves= await makeRequest("GET","/api/users/saveGames",[
-      {"name":"x-auth-user","value":localStorage.token},
-      {"name":"Content-Type","value":"application/json"}
-    ]);
-    let children=document.getElementById("loads").children;
-    for(let i=children.length-1;i>=0;i--){
-      document.getElementById("loads").removeChild(children[i]);
-    }
-    saves=JSON.parse(saves);
-    if(saves.saveBoards==null) return;
-    saves.saveBoards.forEach((item,index)=>{
-      document.getElementById("loads").insertAdjacentHTML("beforeend","<button class=\"btn btn-primary\" style=\"margin: 2vmin\" href=\"#\" saveName=\""+item.name+"\" onclick=\"loadGame("+index+")\">"+item.name+" - score: "+item.score+"</button>");
-    })
   }catch(e){
     console.log(e);
     alert(e.status + ': ' + e.response);
@@ -272,24 +100,6 @@ async function loadGame(index){
   else setupInput()
 }
 
-async function leaderBoard(){
-  try{
-    let bestScores= await makeRequest("GET","/api/users/leaders",[
-      {"name":"x-auth-user","value":localStorage.token},
-      {"name":"Content-Type","value":"application/json"}
-    ]);
-    bestScores=JSON.parse(bestScores);
-    if(bestScores.length==0) return;
-    bestScores.forEach((item, index)=>{
-      document.getElementById("bestUser"+(index+1)).innerHTML=item.username;
-      document.getElementById("bestScore"+(index+1)).innerHTML=item.score;
-    });
-  }catch(e){
-    console.log(e);
-    alert(e.status + ': ' + e.response);
-  }
-}
-
 function newGame(){
   document.getElementById("gameOver").style.display="none";
   gameBoard.classList.remove("over");
@@ -306,7 +116,6 @@ function newGame(){
 
   setupInput()
 }
-
 
 async function gameOver(){
   gameBoard.classList.add("over");
@@ -358,7 +167,7 @@ async function saveGame(save=false){
   }else{
     if(!flag) document.getElementById("warningMessage1").innerHTML="Are you sure you want to replace "+document.getElementById("saveName").value;
     else {
-      document.getElementById("warningMessage1").innerHTML="Are you sure you want to delete your oldest save game?";
+      document.getElementById("warningMessage1").innerHTML="Are you sure you want to delete your oldest save game? (" + children[0].getAttribute("saveName")+")";
     }
     $('#modalWarning').modal({ show:true });
   }

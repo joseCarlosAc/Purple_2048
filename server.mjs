@@ -78,7 +78,7 @@ async function authenticate(req, res, next){
         req.id=user._id;
         next();
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
@@ -136,7 +136,7 @@ app.put("/api/login", async (req,res)=>{
         }
         res.send(user.token);
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
@@ -148,7 +148,7 @@ app.get("/api/users", async (req,res)=>{
         res.send(user);
 
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
@@ -187,20 +187,21 @@ app.post("/api/users", async (req,res)=>{
         res.send(user);
 
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
 });
 
-app.put("/api/users", async (req,res)=>
-{
+app.put("/api/users", async (req,res)=>{
     try{
         let user= await User.findById(req.id);
         if(req.body.oldPassword != undefined && !bcrypt.compareSync(req.body.oldPassword,user.password)){
             res.status(401);
             res.send("Wrong password");
             return;
+        }else if(req.body.password!=undefined){
+            req.body.password=bcrypt.hashSync(req.body.password,10);
         }
         if(req.body.username != undefined){
             let usernameUnique = await User.find({username: req.body.username}) 
@@ -210,13 +211,11 @@ app.put("/api/users", async (req,res)=>
                 return;
             }
         }
-        req.body.password=bcrypt.hashSync(req.body.password,10);
         user = Object.assign(user,req.body);
         await user.save();
         res.send(JSON.stringify(user));
-
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
@@ -234,7 +233,7 @@ app.get("/api/users/bestScores", async (req,res)=>{
         res.send(JSON.stringify(best.bests[req.query.index]));
 
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
@@ -282,7 +281,7 @@ app.put("/api/users/bestScores", async (req,res)=>{
         res.send("Save successfully");
 
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
@@ -299,7 +298,7 @@ app.get("/api/users/saveGames", async (req,res)=>{
         res.send(JSON.stringify(saves.saveBoards[req.query.index]));
 
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
@@ -323,7 +322,7 @@ app.put("/api/users/saveGames", async (req,res)=>{
         res.send("Save successfully");
 
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
@@ -350,7 +349,7 @@ app.get("/api/users/leaders", async (req,res)=>{
         res.send(JSON.stringify(leaders));
         
     }catch(e){
-        console.log(chalk.red(e.message));
+        console.log(chalk.red(e));
         res.status(500);
         res.send("Fatal Error");
     }
