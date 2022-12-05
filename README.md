@@ -1,2 +1,2 @@
 # Purple_2048
-Final project for Web application course
+Final project for development of web applications and services
