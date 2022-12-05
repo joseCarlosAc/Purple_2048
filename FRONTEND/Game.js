@@ -32,6 +32,7 @@ window.addEventListener("load", function(){
   else{
     this.window.login=login;
     this.window.createUser=createUser;
+    if(this.localStorage.token!=undefined) window.location.href = "/FRONTEND/board.html";
   }
 });
 
