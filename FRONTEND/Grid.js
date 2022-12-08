@@ -129,15 +129,15 @@ class Cell {
     return this.tile == null || (this.mergeTile == null && this.tile.value == tile.value);
   }
 
-  mergeTiles() {
-    if (this.tile == null || this.mergeTile == null) return;
+  mergeTiles(score) {
+    if (this.tile == null || this.mergeTile == null) return score;
     this.tile.value = this.tile.value + this.mergeTile.value;
-    let score=document.getElementById("score").innerHTML.substring(7);
     score= parseInt(score)+parseInt(this.#tile.value);
     document.getElementById("score").innerHTML="Score: "+(score);
 
     this.mergeTile.remove();
     this.mergeTile = null;
+    return score;
   }
 }
 

@@ -135,6 +135,7 @@ async function initData() {
             document.getElementById("best").innerHTML = ("Best: " + user.bests[0].score);
         }
         newGame();
+        return best;
     } catch (e) {
         console.log(e);
         alert(e.status + ': ' + e.response);

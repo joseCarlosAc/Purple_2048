@@ -7,14 +7,15 @@ import {makeRequest,editUser,initData,login,bestScores,loadGames,leaderBoard,cre
 // const Url="http://localhost:3000";
 const Url="https://purple2048.cyclic.app/";
 
-export const gameBoard = document.getElementById("game-board");
+const gameBoard = document.getElementById("game-board");
 
-export var grid;
-export var gridCopy;
+var grid;
+var gridCopy;
+var score;
+var best
 
 
-
-window.addEventListener("load", function(){
+window.addEventListener("load", async function(){
   if(document.firstElementChild.getAttribute("pag")=="board"){
     if(this.localStorage.token==undefined) this.window.location.href="/FRONTEND/login.html";
     this.window.newGame=newGame;
@@ -27,7 +28,8 @@ window.addEventListener("load", function(){
     this.window.bestScore=bestScore;
     this.window.editUser=editUser;
     this.window.deleteUser=deleteUser;
-    initData();  
+    await initData();
+    best=parseInt(document.getElementById("best").innerHTML.substring(6));
   }
   else{
     this.window.login=login;
@@ -102,6 +104,10 @@ async function loadGame(index){
   grid = new Grid(gameBoard, save.board);
 
   document.getElementById("score").innerHTML="Score: "+save.score;
+  score=save.score;
+  if(score>best){
+    document.getElementById("best").innerHTML="Best: "+score;
+  }
   $('#loadGame').modal('hide');
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     gameOver();
@@ -119,6 +125,7 @@ function newGame(){
   grid = new Grid(gameBoard);
 
   document.getElementById("score").innerHTML="Score: 0";
+  score=0;
 
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = new Tile(gameBoard);
@@ -131,7 +138,7 @@ async function gameOver(){
   document.getElementById("gameOver").style.display="flex";
   let bestSave = {
     "board": grid.grid,
-    "score": parseInt(document.getElementById("score").innerHTML.substring(7))
+    "score": score
   }
 
   try {
@@ -160,7 +167,7 @@ async function saveGame(save=false){
     let gameSave={
       "name": document.getElementById("saveName").value,
       "board": grid.grid,
-      "score": parseInt(document.getElementById("score").innerHTML.substring(7))
+      "score": score
     }
     try {
       let action= await makeRequest("PUT","/api/users/saveGames",[
@@ -220,14 +227,17 @@ async function handleInput(e) {
       setupInput();
       return;
   }
-
-  grid.cells.forEach(cellArr => cellArr.forEach(cell=>cell.mergeTiles()));
+  grid.cells.forEach(cellArr => cellArr.forEach(cell=>score=cell.mergeTiles(score)));
 
   let newTile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = newTile;
 
-  if(parseInt(document.getElementById("score").innerHTML.substring(7))> parseInt(document.getElementById("best").innerHTML.substring(6))){
-    document.getElementById("best").innerHTML="Best: "+parseInt(document.getElementById("score").innerHTML.substring(7))
+  if(score> best){
+    document.getElementById("best").innerHTML="Best: "+score;
+    best=score;
+  }
+  else{
+    document.getElementById("best").innerHTML="Best: "+best;
   }
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
