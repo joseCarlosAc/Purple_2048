@@ -47,6 +47,7 @@ window.addEventListener("load", async function () {
 //info of modals
 $("#modalSave").on("hidden.bs.modal", () => {
 	document.getElementById("saveName").value = "";
+	setupInput();
 });
 
 $("#modalEdit").on("shown.bs.modal", () => {
@@ -57,11 +58,19 @@ $("#modalEdit").on("shown.bs.modal", () => {
 	document.getElementById("passwordConfirm").value = "";
 });
 
-$("#modalCreate").on("shown.bs.modal", () => {
+$("#modalEdit").on("hidden.bs.modal", () => {
+	document.getElementById("oldPassword").value = "";
+	document.getElementById("updatePassword").value = "";
+	document.getElementById("passwordConfirm").value = "";
+	setupInput();
+});
+
+$("#modalCreate").on("hidden.bs.modal", () => {
 	document.getElementById("newUsername").value = "";
 	document.getElementById("newEmail").value = "";
 	document.getElementById("newPassword").value = "";
 	document.getElementById("confPassword").value = "";
+	setupInput();
 });
 
 $("#showBoard").on("hidden.bs.modal", () => {
@@ -235,6 +244,47 @@ function setupInput() {
 }
 
 async function handleInput(e) {
+	if ($("#Leaderboard").hasClass("show")) {
+		setupInput();
+		return;
+	}
+	if ($("#bestScores").hasClass("show")) {
+		setupInput();
+		return;
+	}
+	if ($("#loadGame").hasClass("show")) {
+		setupInput();
+		return;
+	}
+	if ($("#showBoard").hasClass("show")) {
+		setupInput();
+		return;
+	}
+	if ($("#userInfo").hasClass("show")) {
+		setupInput();
+		return;
+	}
+	if ($("#modalEdit").hasClass("show")) {
+		setupInput();
+		return;
+	}
+	if ($("#modalSave").hasClass("show")) {
+		setupInput();
+		return;
+	}
+	if ($("#modalWarning").hasClass("show")) {
+		setupInput();
+		return;
+	}
+
+	if ($("#modalDelete").hasClass("show")) {
+		setupInput();
+		return;
+	}
+	if ($("#modalCreate").hasClass("show")) {
+		setupInput();
+		return;
+	}
 	switch (e.key) {
 		case "ArrowUp":
 			if (!canMoveUp()) {
