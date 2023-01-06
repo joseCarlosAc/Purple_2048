@@ -13,8 +13,10 @@ var grid;
 var gridCopy;
 var score;
 var best;
+var xTouch;
+var yTouch;
 
-//
+//init page
 window.addEventListener("load", async function () {
 	if (document.firstElementChild.getAttribute("pag") === "board") {
 		if (this.localStorage.token === undefined) this.window.location.href = "/FRONTEND/login.html";
@@ -56,6 +58,9 @@ $("#modalSave").on("hidden.bs.modal", () => {
 $("#modalEdit").on("shown.bs.modal", () => {
 	document.getElementById("updateUsername").value = document.getElementById("username").innerHTML.substring(10);
 	document.getElementById("updateEmail").value = document.getElementById("email").innerHTML.substring(7);
+	document.getElementById("oldPassword").value = "";
+	document.getElementById("updatePassword").value = "";
+	document.getElementById("passwordConfirm").value = "";
 });
 
 $("#modalCreate").on("shown.bs.modal", () => {
@@ -203,6 +208,36 @@ async function saveGame(save = false) {
 
 function setupInput() {
 	window.addEventListener("keydown", handleInput, { once: true });
+	window.addEventListener(
+		"touchstart",
+		(e) => {
+			xTouch = e.touches[0].clientX;
+			yTouch = e.touches[0].clientY;
+		},
+		{ once: true }
+	);
+	window.addEventListener(
+		"touchmove",
+		(e) => {
+			let xMove = e.changedTouches[0].clientX;
+			let yMove = e.changedTouches[0].clientY;
+
+			console.log("xStar: " + xTouch + " xEnd: " + xMove);
+			console.log("yStar: " + yTouch + " yEnd: " + yMove);
+			let move = {};
+			if (xTouch === xMove) {
+				if (yTouch > yMove) move.key = "ArrowUp";
+				else move.key = "ArrowDown";
+			} else {
+				if (xTouch > xMove) move.key = "ArrowLeft";
+				else move.key = "ArrowRight";
+			}
+
+			console.log(move);
+			handleInput(move);
+		},
+		{ once: true }
+	);
 }
 
 async function handleInput(e) {

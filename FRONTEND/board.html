@@ -1,344 +1,338 @@
 <!--cSpell: disable  -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" pag="board">
+	<head>
+		<title>Purple 2048</title>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-<head>
-  <title>Purple 2048</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+		<link rel="stylesheet" href="/FRONTEND/Styles/ExtStyles.css" />
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="/FRONTEND/Styles/ExtStyles.css">
-  
-  <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-  <script defer src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+		<script defer src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-  <script defer src="/FRONTEND/Game.js" type="module"></script>
+		<script defer src="/FRONTEND/Game.js" type="module"></script>
+	</head>
 
-</head>
-
-<body>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <div id="main">
-    <!----Navbar----->
-    <nav class="navbar navbar-expand-sm navbar-dark" style="padding-bottom: 0.3vmin; padding-top: 0.3vmin;">
-      <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
-      <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="align-items:center">
-          <li class="nav-item active">
-            <a class="nav-link" href="#" data-toggle="modal" data-target="#userInfo"><img src="/FRONTEND/images/LOGIN.png" alt="Loginpa" height="40px" width="40px"><a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle="modal" data-target="#bestScores" onclick="bestScores()"> My bests scores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-target="#Leaderboard" data-toggle="modal" href="#" onclick="leaderBoard()">Leaderboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-target="#loadGame" data-toggle="modal" href="#" onclick="loadGames()">Load game</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav reigth mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a href="#" onclick="logout()"><img src="/FRONTEND/images/logout.png" alt="Valio madre" height="40px"></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <!----Tablero----->
-    <div style=" align-items: center; display: flex; flex-direction: column; font-size:7.5vmin; ">
-      <div class="board-header">
-        <div class="board-left " style="width: 60%; display: flex;">
-          <div style="display:inline-flex; margin-bottom:3vmin;">
-            <img src="/FRONTEND/images/2048_neon.png" alt="error al cargar la imagen" height="75vmin" style="display: flex;">
-          </div>
-          <div class="container" style=" display: flex; flex-direction: row; justify-content: space-between;color:white;">
-            <p id="score">Score: 0</p>
-            <p id="best"></p>
-          </div>
-        </div>
-        <div class="container" style="width: 50%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-content: space-around;">
-          <div><button style="width: 18vmin;" name="" id="newGame" class="btn btn-primary" onclick="newGame()">New Game</button></div>
-          <div><button style="width: 18vmin;" name="" id="SaveGame" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">Save Game</button></div>
-        </div>
-      </div>
-      <div id="game-board" class="over">
-      </div>
-      <div id="gameOver" style="position: absolute; top: 57vmin; align-items: center; display: none; flex-direction: column;">
-        <h1 style="color: white; font-size: 5vmin; display: block;">Game Over</h1>
-        <div><button style="width: 18vmin; " name="" id="newGame" class="btn btn-primary" onclick="newGame()">Try again</button></div>
-      </div>
-    </div>
-  </div>
-  <div id="lottie" style="position: absolute; width: 40vmin; height: 40vmin; top: 43vh; left: 40vw; z-index: 1051; display:none;">
-    <lottie-player src="/FRONTEND/images/lf30_editor_gtkt7a1w.json" background="transparent"  speed="1"  style="width: 100%; height: 100%;" loop autoplay></lottie-player>
-  </div>
-</body>
-
+	<body>
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<div id="main">
+			<!----Navbar----->
+			<nav class="navbar navbar-expand-sm navbar-dark" style="padding-bottom: 0.3vmin; padding-top: 0.3vmin">
+				<a class="navbar-brand" href="#" data-toggle="modal" data-target="#userInfo"><img src="/FRONTEND/images/LOGIN.png" alt="Loginpa" height="40px" width="40px" /></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="collapsibleNavId">
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="align-items: center">
+						<li class="nav-item">
+							<a class="nav-link" href="#" data-toggle="modal" data-target="#bestScores" onclick="bestScores()"> My bests scores</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-target="#Leaderboard" data-toggle="modal" href="#" onclick="leaderBoard()">Leaderboard</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-target="#loadGame" data-toggle="modal" href="#" onclick="loadGames()">Load game</a>
+						</li>
+					</ul>
+					<ul class="navbar-nav reigth mt-2 mt-lg-0" style="align-items: center">
+						<li class="nav-item">
+							<a href="#" onclick="logout()"><img src="/FRONTEND/images/logout.png" alt="Valio madre" height="40px" /></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!----Tablero----->
+			<div style="align-items: center; display: flex; flex-direction: column; font-size: 7.5vmin">
+				<div class="board-header">
+					<div class="board-left" style="width: 60%; display: flex">
+						<div style="display: inline-flex; margin-bottom: 3vmin">
+							<img src="/FRONTEND/images/2048_neon.png" alt="error al cargar la imagen" height="75vmin" style="display: flex" />
+						</div>
+						<div class="container" style="display: flex; flex-direction: row; justify-content: space-between; color: white">
+							<p id="score">Score: 0</p>
+							<p id="best"></p>
+						</div>
+					</div>
+					<div class="container" style="width: 50%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-content: space-around">
+						<div><button style="width: 18vmin" name="" id="newGame" class="btn btn-primary" onclick="newGame()">New Game</button></div>
+						<div><button style="width: 18vmin" name="" id="SaveGame" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">Save Game</button></div>
+					</div>
+				</div>
+				<div id="game-board" class="over"></div>
+				<div id="gameOver" style="position: absolute; top: 57vmin; align-items: center; display: none; flex-direction: column">
+					<h1 style="color: white; font-size: 5vmin; display: block">Game Over</h1>
+					<div><button style="width: 18vmin" name="" id="newGame" class="btn btn-primary" onclick="newGame()">Try again</button></div>
+				</div>
+			</div>
+		</div>
+		<div id="lottie" style="position: absolute; width: 40vmin; height: 40vmin; top: 43vh; left: 40vw; z-index: 1051; display: none">
+			<lottie-player src="/FRONTEND/images/lf30_editor_gtkt7a1w.json" background="transparent" speed="1" style="width: 100%; height: 100%" loop autoplay></lottie-player>
+		</div>
+	</body>
 </html>
 
 <!--Modal de leaderBoard-->
 <div class="modal fade" id="Leaderboard" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color:#EDEDED">
-      <div class="modal-header">
-        <h5 class="modal-title" style="color: #790252; font-style: oblique; font-weight: bold;">Leaderboard</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table style="width:100%;">
-          <tr>
-            <th style="color: #AF0171;">Username</th>
-            <th style="color: #AF0171;">Score</th>
-          </tr>
-          <tr>
-            <td id="bestUser1">No one</td>
-            <td id="bestScore1">0</td>
-          </tr>
-          <tr>
-            <td id="bestUser2">No one</td>
-            <td id="bestScore2">0</td>
-          </tr>
-          <tr>
-            <td id="bestUser3">No one</td>
-            <td id="bestScore3">0</td>
-          </tr>
-          <tr>
-            <td id="bestUser4">No one</td>
-            <td id="bestScore4">0</td>
-          </tr>
-          <tr>
-            <td id="bestUser5">No one</td>
-            <td id="bestScore5">0</td>
-          </tr>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#AF0171; border:none ;">Close</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="background-color: #ededed">
+			<div class="modal-header">
+				<h5 class="modal-title" style="color: #790252; font-style: oblique; font-weight: bold">Leaderboard</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table style="width: 100%">
+					<tr>
+						<th style="color: #af0171">Username</th>
+						<th style="color: #af0171">Score</th>
+					</tr>
+					<tr>
+						<td id="bestUser1">No one</td>
+						<td id="bestScore1">0</td>
+					</tr>
+					<tr>
+						<td id="bestUser2">No one</td>
+						<td id="bestScore2">0</td>
+					</tr>
+					<tr>
+						<td id="bestUser3">No one</td>
+						<td id="bestScore3">0</td>
+					</tr>
+					<tr>
+						<td id="bestUser4">No one</td>
+						<td id="bestScore4">0</td>
+					</tr>
+					<tr>
+						<td id="bestUser5">No one</td>
+						<td id="bestScore5">0</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #af0171; border: none">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!--Modal de best score-->
 <div class="modal fade" id="bestScores" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color:#EDEDED">
-      <div class="modal-header">
-        <h5 class="modal-title" style="color: #790252;">Best Scores</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="display: flex; flex-direction:column;">
-        <button name="" id="score1" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(0)">Score: 0</button>
-        <button name="" id="score2" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(1)">Score: 0</button>
-        <button name="" id="score3" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(2)">Score: 0</button>
-        <button name="" id="score4" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(3)">Score: 0</button>
-        <button name="" id="score5" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(4)">Score: 0</button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#AF0171; border: none;">Close</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="background-color: #ededed">
+			<div class="modal-header">
+				<h5 class="modal-title" style="color: #790252">Best Scores</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="display: flex; flex-direction: column">
+				<button name="" id="score1" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(0)">Score: 0</button>
+				<button name="" id="score2" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(1)">Score: 0</button>
+				<button name="" id="score3" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(2)">Score: 0</button>
+				<button name="" id="score4" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(3)">Score: 0</button>
+				<button name="" id="score5" class="btn btn-primary" data-target="#showBoard" data-toggle="modal" style="margin: 2vmin" href="#" role="button" onclick="bestScore(4)">Score: 0</button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #af0171; border: none">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!--Modal de load game-->
 <div class="modal fade" id="loadGame" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color:#EDEDED">
-      <div class="modal-header">
-        <h5 class="modal-title" style="color: #790252;">Load Games</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="display: flex; flex-direction:column;" id="loads">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#AF0171; border: none;">Close</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="background-color: #ededed">
+			<div class="modal-header">
+				<h5 class="modal-title" style="color: #790252">Load Games</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="display: flex; flex-direction: column" id="loads"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #af0171; border: none">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!--Modal de mostrar tablero-->
 <div class="modal fade" id="showBoard" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width: 75vmin;">
-      <div class="modal-header">
-        <h5 class="modal-title" style="color: #790252;" id="bestScore"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style=" background-color:#404258; display: flex; flex-direction: column; justify-content: flex-start;margin: 0 auto;">
-        <div id="bestGame-board">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#AF0171; border: none;">Close</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="width: 75vmin">
+			<div class="modal-header">
+				<h5 class="modal-title" style="color: #790252" id="bestScore"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="background-color: #404258; display: flex; flex-direction: column; justify-content: flex-start; margin: 0 auto">
+				<div id="bestGame-board"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #af0171; border: none">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!--Modal de información de usuario -->
 <div class="modal fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" style="color: #790252">Profile Information</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style=" background-color:#EDEDED">
-        <h4 id="username"></h4>
-        <br>
-        <h4 id="email"></h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-secondary" data-target="#modalDelete" data-toggle="modal">Delete user</button>
-        <button type="button" class="btn btn-primary" data-target="#modalEdit" data-toggle="modal">Edit Information</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" style="color: #790252">Profile Information</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="background-color: #ededed">
+				<h4 id="username"></h4>
+				<br />
+				<h4 id="email"></h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-secondary" data-target="#modalDelete" data-toggle="modal">Delete user</button>
+				<button type="button" class="btn btn-primary" data-target="#modalEdit" data-toggle="modal">Edit Information</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!--Modal de editar información de usuario -->
 <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color: #FBAFFF;">
-      <div class="modal-header" style="background-color: #AF0171;">
-        <h5 class="modal-title" style="color: white;">Edit your profile</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="formNewUser" action="javascript:editUser()">
-          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
-            <label for="updateUsername" ALIGN=LEFT>Username</label>
-            <div class="input-group">
-              <input type="text" class="form-control" id="updateUsername" name="newUser" aria-describedby="helpId" placeholder="Pick a username">
-            </div>
-          </div>
-          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
-            <label for="updateEmail" ALIGN=LEFT>Email</label>
-            <div class="input-group">
-              <input type="email" class="form-control" id="updateEmail" name="updateEmail" aria-describedby="helpId" placeholder="Introduce a email">
-            </div>
-          </div>
-          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
-            <label for="oldPassword" ALIGN=LEFT>Old Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control" id="oldPassword" aria-describedby="helpId" placeholder="insert your old password to change for a new password">
-            </div>
-          </div>
-          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
-            <label for="updatePassword" ALIGN=LEFT>New Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control" id="updatePassword" aria-describedby="helpId" placeholder="Set a password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
-            </div>
-          </div>
-          <div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center;">
-            <label for="passwordConfirm" ALIGN=LEFT>Confirm Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control" id="passwordConfirm" name="newUser" aria-describedby="helpId" placeholder="Confirm the password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
-            </div>
-          </div>
-          <button class="btn" type="submit" style="background-color: #790252; color: white; padding: .375rem 3rem;">Save Changes</button>
-        </form>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="background-color: #fbafff">
+			<div class="modal-header" style="background-color: #af0171">
+				<h5 class="modal-title" style="color: white">Edit your profile</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="formNewUser" action="javascript:editUser()">
+					<div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center">
+						<label for="updateUsername" ALIGN="LEFT">Username</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="updateUsername" name="newUser" aria-describedby="helpId" placeholder="Pick a username" />
+						</div>
+					</div>
+					<div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center">
+						<label for="updateEmail" ALIGN="LEFT">Email</label>
+						<div class="input-group">
+							<input type="email" class="form-control" id="updateEmail" name="updateEmail" aria-describedby="helpId" placeholder="Introduce a email" />
+						</div>
+					</div>
+					<div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center">
+						<label for="oldPassword" ALIGN="LEFT">Old Password</label>
+						<div class="input-group">
+							<input type="password" class="form-control" id="oldPassword" aria-describedby="helpId" placeholder="insert your old password to change for a new password" />
+						</div>
+					</div>
+					<div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center">
+						<label for="updatePassword" ALIGN="LEFT">New Password</label>
+						<div class="input-group">
+							<input type="password" class="form-control" id="updatePassword" aria-describedby="helpId" placeholder="Set a password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" />
+						</div>
+					</div>
+					<div class="form-group" style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; align-items: center">
+						<label for="passwordConfirm" ALIGN="LEFT">Confirm Password</label>
+						<div class="input-group">
+							<input type="password" class="form-control" id="passwordConfirm" name="newUser" aria-describedby="helpId" placeholder="Confirm the password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" />
+						</div>
+					</div>
+					<button class="btn" type="submit" style="background-color: #790252; color: white; padding: 0.375rem 3rem">Save Changes</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Modal save games-->
 <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color: #FBAFFF;">
-      <div class="modal-header" style="background-color: #AF0171;">
-        <h5 class="modal-title" style="color: white;">Save game</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="javascript:saveGame()" class="row">
-          <div class="form-group col-7">
-            <div class="input-group">
-              <input type="text" class="form-control" id="saveName" placeholder="Enter name" required>
-            </div>
-          </div>
-          <div class="col-4"><button type="submit" class="btn btn-primary col-12">Save</button></div>
-        </form>
-        <!-- cSpell: enable -->
-        <div>
-          <h3>You can save up to 5 games</h3>
-          <h6>If you already have 5 saved games, the oldest one will be deleted</h6>
-          <h6>If you save a game with a name that already exist will replace this one</h6>
-          <h6>(If you still want to save the oldest one, we recommend loading and saving it again.)</h6>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn" style="background-color: #790252; color: white; padding: .375rem 3rem;" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="background-color: #fbafff">
+			<div class="modal-header" style="background-color: #af0171">
+				<h5 class="modal-title" style="color: white">Save game</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="javascript:saveGame()" class="row">
+					<div class="form-group col-7">
+						<div class="input-group">
+							<input type="text" class="form-control" id="saveName" placeholder="Enter name" required />
+						</div>
+					</div>
+					<div class="col-4"><button type="submit" class="btn btn-primary col-12">Save</button></div>
+				</form>
+				<!-- cSpell: enable -->
+				<div>
+					<h3>You can save up to 5 games</h3>
+					<h6>If you already have 5 saved games, the oldest one will be deleted</h6>
+					<h6>If you save a game with a name that already exist will replace this one</h6>
+					<h6>(If you still want to save the oldest one, we recommend loading and saving it again.)</h6>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn" style="background-color: #790252; color: white; padding: 0.375rem 3rem" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Modal warning-->
 <div class="modal fade" id="modalWarning" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color: #FBAFFF;">
-      <div class="modal-header" style="background-color: #AF0171;">
-        <h5 class="modal-title" style="color: white;">Warning</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- cSpell: enable -->
-        <h5 id="warningMessage1"></h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveGame(true)">Yes</button>
-        <button type="button" class="btn" style="background-color: #790252; color: white; padding: .375rem 3rem;" data-dismiss="modal">No</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="background-color: #fbafff">
+			<div class="modal-header" style="background-color: #af0171">
+				<h5 class="modal-title" style="color: white">Warning</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!-- cSpell: enable -->
+				<h5 id="warningMessage1"></h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveGame(true)">Yes</button>
+				<button type="button" class="btn" style="background-color: #790252; color: white; padding: 0.375rem 3rem" data-dismiss="modal">No</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Modal warning-->
 <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color: #FBAFFF;">
-      <div class="modal-header" style="background-color: #AF0171;">
-        <h5 class="modal-title" style="color: white;">Delete</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- cSpell: enable -->
-        <h5>Are you sure you want to delete your account</h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteUser()">Yes</button>
-        <button type="button" class="btn" style="background-color: #790252; color: white; padding: .375rem 3rem;" data-dismiss="modal">No</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="background-color: #fbafff">
+			<div class="modal-header" style="background-color: #af0171">
+				<h5 class="modal-title" style="color: white">Delete</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!-- cSpell: enable -->
+				<h5>Are you sure you want to delete your account</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteUser()">Yes</button>
+				<button type="button" class="btn" style="background-color: #790252; color: white; padding: 0.375rem 3rem" data-dismiss="modal">No</button>
+			</div>
+		</div>
+	</div>
 </div>
