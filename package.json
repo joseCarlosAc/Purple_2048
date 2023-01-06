@@ -1,30 +1,33 @@
 {
-  "name": "Purple_2048",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "start": "node server.mjs",
-    "test": "mocha --timeout 10000",
-    "dev": "node server.mjs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PurpleOzone/Purple_2048.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/PurpleOzone/Purple_2048/issues"
-  },
-  "homepage": "https://github.com/PurpleOzone/Purple_2048#readme",
-  "dependencies": {
-    "bcrypt": "^5.1.0",
-    "chalk": "^5.1.2",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "mongoose": "^6.7.5",
-    "path": "^0.12.7",
-    "randomatic": "^3.1.1",
-    "url": "^0.11.0"
-  }
+	"name": "Purple_2048",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"start": "node server.mjs",
+		"test": "mocha --timeout 10000",
+		"dev": "nodemon server.mjs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PurpleOzone/Purple_2048.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/PurpleOzone/Purple_2048/issues"
+	},
+	"homepage": "https://github.com/PurpleOzone/Purple_2048#readme",
+	"dependencies": {
+		"bcrypt": "^5.1.0",
+		"chalk": "^5.2.0",
+		"cors": "^2.8.5",
+		"express": "^4.18.2",
+		"mongoose": "^6.8.2",
+		"path": "^0.12.7",
+		"randomatic": "^3.1.1",
+		"url": "^0.11.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.20"
+	}
 }
