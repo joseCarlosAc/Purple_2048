@@ -230,7 +230,7 @@ function setupInput() {
 			if (xTouch - xMove >= 100 || xTouch - xMove <= -100) {
 				if (xTouch > xMove) move.key = "ArrowLeft";
 				else move.key = "ArrowRight";
-			} else {
+			} else if (yTouch - yMove >= 100 || yTouch - yMove <= -100) {
 				if (yTouch > yMove) move.key = "ArrowUp";
 				else move.key = "ArrowDown";
 			}
