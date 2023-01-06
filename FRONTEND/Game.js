@@ -217,8 +217,9 @@ function setupInput() {
 		{ once: true }
 	);
 	window.addEventListener(
-		"touchmove",
+		"touchend",
 		(e) => {
+			e.preventDefault();
 			let xMove = e.changedTouches[0].clientX;
 			let yMove = e.changedTouches[0].clientY;
 
