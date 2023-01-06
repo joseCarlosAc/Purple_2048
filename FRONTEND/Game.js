@@ -232,7 +232,8 @@ function setupInput() {
 				if (xTouch > xMove) move.key = "ArrowLeft";
 				else move.key = "ArrowRight";
 			}
-
+			console.log(xMove + ", " + xTouch);
+			console.log(yMove + ", " + yTouch);
 			console.log(move);
 			handleInput(move);
 		},
