@@ -1,3 +1,5 @@
+//100 de diferencia en movimiento
+
 "use strict";
 // cSpell:ignore 2vmin Leaderboard
 import Grid from "/FRONTEND/Grid.js";
@@ -18,6 +20,9 @@ var yTouch;
 
 //init page
 window.addEventListener("load", async function () {
+	// var x = window.scrollX;
+	// var y = window.scrollY;
+	// window.onscroll = () => window.scrollTo(x, y);
 	if (document.firstElementChild.getAttribute("pag") === "board") {
 		if (this.localStorage.token === undefined) this.window.location.href = "/FRONTEND/login.html";
 		this.window.newGame = newGame;
@@ -38,17 +43,6 @@ window.addEventListener("load", async function () {
 		if (this.localStorage.token != undefined) window.location.href = "/FRONTEND/board.html";
 	}
 });
-
-//unable arrow move
-window.addEventListener(
-	"keydown",
-	(e) => {
-		if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
-			e.preventDefault();
-		}
-	},
-	false
-);
 
 //info of modals
 $("#modalSave").on("hidden.bs.modal", () => {
@@ -226,12 +220,12 @@ function setupInput() {
 			console.log("xStar: " + xTouch + " xEnd: " + xMove);
 			console.log("yStar: " + yTouch + " yEnd: " + yMove);
 			let move = {};
-			if (xTouch === xMove) {
-				if (yTouch > yMove) move.key = "ArrowUp";
-				else move.key = "ArrowDown";
-			} else {
+			if (xTouch - xMove >= 100 || xTouch - xMove <= -100) {
 				if (xTouch > xMove) move.key = "ArrowLeft";
 				else move.key = "ArrowRight";
+			} else {
+				if (yTouch > yMove) move.key = "ArrowUp";
+				else move.key = "ArrowDown";
 			}
 			console.log(move);
 			handleInput(move);
