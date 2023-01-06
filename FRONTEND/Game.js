@@ -6,8 +6,9 @@ import Grid from "/FRONTEND/Grid.js";
 import Tile from "/FRONTEND/Tile.js";
 import { makeRequest, editUser, initData, login, bestScores, loadGames, leaderBoard, createUser, logout, deleteUser } from "/FRONTEND/Users.js";
 
-// const Url="http://localhost:3000";
-const Url = "https://purple2048.cyclic.app/";
+// const Url = "http://localhost:3000";
+// const Url = "https://purple2048.cyclic.app/";
+const Url = "https://puzzled-bathing-suit-hare.cyclic.app/";
 
 const gameBoard = document.getElementById("game-board");
 
@@ -20,9 +21,6 @@ var yTouch;
 
 //init page
 window.addEventListener("load", async function () {
-	// var x = window.scrollX;
-	// var y = window.scrollY;
-	// window.onscroll = () => window.scrollTo(x, y);
 	if (document.firstElementChild.getAttribute("pag") === "board") {
 		if (this.localStorage.token === undefined) this.window.location.href = "/FRONTEND/login.html";
 		this.window.newGame = newGame;
@@ -42,6 +40,10 @@ window.addEventListener("load", async function () {
 		this.window.createUser = createUser;
 		if (this.localStorage.token != undefined) window.location.href = "/FRONTEND/board.html";
 	}
+});
+
+window.addEventListener("touchmove", (e) => {
+	e.preventDefault();
 });
 
 //info of modals
@@ -222,12 +224,8 @@ function setupInput() {
 	window.addEventListener(
 		"touchend",
 		(e) => {
-			e.preventDefault();
 			let xMove = e.changedTouches[0].clientX;
 			let yMove = e.changedTouches[0].clientY;
-
-			console.log("xStar: " + xTouch + " xEnd: " + xMove);
-			console.log("yStar: " + yTouch + " yEnd: " + yMove);
 			let move = {};
 			if (xTouch - xMove >= 100 || xTouch - xMove <= -100) {
 				if (xTouch > xMove) move.key = "ArrowLeft";
@@ -236,7 +234,6 @@ function setupInput() {
 				if (yTouch > yMove) move.key = "ArrowUp";
 				else move.key = "ArrowDown";
 			}
-			console.log(move);
 			handleInput(move);
 		},
 		{ once: true }
